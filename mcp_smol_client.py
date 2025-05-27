@@ -12,7 +12,15 @@ model = OpenAIServerModel(
         api_key=os.environ['SQL_MODEL_API_KEY']
     )
 
-server_parameters = StdioServerParameters(command="python", args=["mcp_server.py"])
+# For STDIO server
+# server_parameters = StdioServerParameters(command="python", args=["mcp_stdio_server.py"])
+
+# For SSE server
+server_parameters = {"url": "http://localhost:3005/sse"}
+
+# For streamable HTTP:
+# Streamable HTTP support implementation is in progress for smolagents. https://github.com/huggingface/smolagents/pull/1384
+# server_parameters = {"url": "http://localhost:8000/mcp"}
 
 with ToolCollection.from_mcp(
     server_parameters,

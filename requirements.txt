@@ -1,11 +1,6 @@
-groq
 python-dotenv
-langchain
-langchain[groq]
 streamlit
-langchain_community
 psycopg2
-langchain_huggingface
 unstructured[md]
 smolagents
 pandas
@@ -14,3 +9,5 @@ mcp[cli]
 smolagents[openai]
 smolagents[mcp]
 matplotlib
+fastapi
+uvicorn
