@@ -1,10 +1,8 @@
 from mcp.server.fastmcp import FastMCP
-from starlette.routing import Mount
 
 from utils import sqlChatInfo, sql_inference, extract_code_blocks
 from dotenv import dotenv_values
 from sqlalchemy import create_engine, text
-from fastapi import FastAPI
 
 env = dotenv_values()
 
@@ -40,20 +38,5 @@ def bookings_database(question: str) -> str:
     result = [t._tuple() for t in q_result]
     return str(result)
 
-# Create a FastAPI app
-app = FastAPI(
-    title="MCP API Server",
-    description="MCP Server with API Key Authentication",
-    version="1.0.0"
-)
-
-app.routes.append(Mount('/', app=mcp.sse_app()))
-
 if __name__ == "__main__":
-    # mcp.run(transport="streamable-http")
-    mcp.settings.port = 3005
-
-    # Run FastAPI app with uvicorn instead of the MCP app directly
-    import uvicorn
-
-    uvicorn.run(app, host=mcp.settings.host, port=mcp.settings.port)
+    mcp.run(transport="streamable-http")

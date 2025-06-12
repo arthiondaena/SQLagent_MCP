@@ -12,9 +12,12 @@ system_prompt = sqlChatInfo(uri)
 
 @mcp.tool()
 def bookings_database(question: str) -> str:
-    """Return the answer to a question which will be retrieved from a database,
+    """Returns the answer to a question which will be retrieved from a database,
      which contains all the customer booking information
-     The function returns a list of tuples. Each tuple contains the resultant row from the database query.
+     The function returns a string which contains a list of tuples. Each tuple contains the resultant row from the database query.
+     After calling the function, use ast.literal_eval to convert the string to a list of tuples.
+     It is very important to use ast.literal_eval after calling the function to avoid errors.
+     Don't print all the results since it can consume a large number of tokens, use slicing to print only a subset of results.
      The database contains information like mail, phone number, name, date, slot, booking date, booking time.
      DO NOT ask the bookings_database to retrieve all the booking information or all the theatre bookings.
      Example question:
@@ -22,7 +25,7 @@ def bookings_database(question: str) -> str:
      2. Who are the top 3 most visited customers?
      3. What are the number of bookings monthly?
      Example function call
-     >> bookings_database("What are the top 3 most booked theatres?")
+     >> bookings_database(question="What are the top 3 most booked theatres?")
      Args:
         question: The question to be answered.
     """
